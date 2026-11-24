@@ -1,5 +1,7 @@
 import HoverText from "../components/HoverText";
 import ContactMenu from "../components/ContactMenu";
+import Divider from "../components/Divider";
+import AboutSection from "../components/AboutSection";
 
 export default function Home() {
   return (
@@ -16,8 +18,11 @@ export default function Home() {
       >
         Student software development op het ROC Midden Nederland van Amersfoort
       </p>
-
       <ContactMenu />
+
+      <Divider />
+      <AboutSection />
+      <Divider />
     </main>
   );
 }

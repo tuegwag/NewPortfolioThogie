@@ -1,0 +1,26 @@
+.divider {
+  --dot: clamp(8px, 1.2vw, 12px); /* circle size scales with the screen */
+
+  display: flex;
+  align-items: center;
+  width: 100%;                     /* fills the page content, so left and right gaps match */
+  margin-top: clamp(2.5rem, 8vw, 5rem); /* whitespace above, grows with screen size */
+}
+
+/* circles at both ends */
+.divider::before,
+.divider::after {
+  content: "";
+  flex: none;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* the line between them */
+.divider__line {
+  flex: 1;
+  height: 2px;
+  background: color-mix(in srgb, currentColor 40%, transparent);
+}

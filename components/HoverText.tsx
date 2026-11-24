@@ -3,6 +3,7 @@
 import { Fragment, useState } from "react";
 
 const SCALES = [1.6, 1.3, 1.12];
+const STAGGER = 50; // ms between letters
 
 export default function HoverText({ text }: { text: string }) {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -12,17 +13,13 @@ export default function HoverText({ text }: { text: string }) {
     return SCALES[Math.abs(index - hovered)] ?? 1;
   };
 
-  const words = text.split(" ");
-  const wordOffsets = words.map((_, wordIndex) =>
-    words
-      .slice(0, wordIndex)
-      .reduce((offset, word) => offset + word.length + 1, 0),
-  );
+  let index = 0;
 
   return (
     <span aria-label={text} onMouseLeave={() => setHovered(null)}>
-      {words.map((word, w) => {
-        const start = wordOffsets[w];
+      {text.split(" ").map((word, w) => {
+        const start = index;
+        index += word.length + 1;
         return (
           <Fragment key={w}>
             {w > 0 && " "}
@@ -30,11 +27,16 @@ export default function HoverText({ text }: { text: string }) {
               {word.split("").map((char, c) => (
                 <span
                   key={c}
-                  onMouseEnter={() => setHovered(start + c)}
-                  className="inline-block transition-transform duration-200 ease-out"
-                  style={{ transform: `scale(${getScale(start + c)})` }}
+                  className="wave-in inline-block"
+                  style={{ animationDelay: `${(start + c) * STAGGER}ms` }}
                 >
-                  {char}
+                  <span
+                    onMouseEnter={() => setHovered(start + c)}
+                    className="inline-block transition-transform duration-200 ease-out"
+                    style={{ transform: `scale(${getScale(start + c)})` }}
+                  >
+                    {char}
+                  </span>
                 </span>
               ))}
             </span>
