@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // One entry per photo. Paragraph i belongs to slide i: when slide i is the
@@ -36,18 +37,54 @@ const SECTIONS = [
   },
 ];
 
-// Where each paragraph "is" in the scrolling text, as a scrollTop value.
-// Normally that is the top of the paragraph. If the last paragraphs are too short
-// to ever reach the top of the box, all anchors are squeezed so the last one lands
-// exactly at the bottom, keeping them in order.
-function getAnchors(el: HTMLDivElement, max: number): number[] {
+// Photos live in the public folder: public/img/section1.jpg ... section6.jpg
+// (Next.js serves everything in public/ from the site root, so that is /img/section1.jpg).
+// Change IMAGE_EXTENSION if your files are .png, .webp, etc.
+const IMAGE_EXTENSION = "jpg";
+const IMAGE_COUNT = 7;
+const imageFor = (index: number): string | undefined =>
+  index < IMAGE_COUNT ? `/img/section${index + 1}.${IMAGE_EXTENSION}` : undefined;
+
+// When a paragraph is "on", it starts this many px below the top of the box, so a
+// little of the previous paragraph stays visible above it (the top fade sits there).
+const TOP_OFFSET = 32;
+
+// The scroll position at which a paragraph is "on": it starts near the top of the
+// box. A paragraph that fits in the box is never cut off at the bottom, so it may
+// start a little higher than TOP_OFFSET if it needs to.
+function startStop(el: HTMLDivElement, child: Element, max: number): number {
   const base = el.getBoundingClientRect().top;
-  const tops = Array.from(el.children).map(
-    (child) => child.getBoundingClientRect().top - base + el.scrollTop,
-  );
-  const lastTop = tops[tops.length - 1] ?? 0;
-  const squeeze = lastTop > max && lastTop > 0 ? max / lastTop : 1;
-  return tops.map((top) => top * squeeze);
+  const top = child.getBoundingClientRect().top - base + el.scrollTop;
+  const bottom = top + (child as HTMLElement).offsetHeight;
+  let y = top - TOP_OFFSET;
+  if (bottom - top <= el.clientHeight) y = Math.max(y, bottom - el.clientHeight);
+  return Math.min(max, Math.max(0, y));
+}
+
+// Where each paragraph "is" in the scrolling text, as a scrollTop value.
+function getAnchors(el: HTMLDivElement, max: number): number[] {
+  return Array.from(el.children).map((child) => startStop(el, child, max));
+}
+
+// The places the mouse wheel stops, in order. Every paragraph has one stop where it
+// starts near the top of the box. A paragraph that is taller than the box also gets
+// extra stops, the last one showing its final line, so nothing is ever skipped.
+function getStops(el: HTMLDivElement, max: number): number[] {
+  const base = el.getBoundingClientRect().top;
+  const view = el.clientHeight;
+  const clamp = (y: number) => Math.min(max, Math.max(0, y));
+  const stops: number[] = [];
+  Array.from(el.children).forEach((child) => {
+    const top = child.getBoundingClientRect().top - base + el.scrollTop;
+    const bottom = top + (child as HTMLElement).offsetHeight;
+    let y = startStop(el, child, max);
+    stops.push(y);
+    while (y + view < bottom) {
+      y = Math.min(y + view * 0.8, bottom - view);
+      stops.push(clamp(y));
+    }
+  });
+  return stops;
 }
 
 export default function AboutSection() {
@@ -70,6 +107,13 @@ export default function AboutSection() {
 
   // Which slide (and so which paragraph) is currently "on".
   const [active, setActive] = useState(0);
+
+  // Slides whose image failed to load (wrong name or extension) fall back to the number.
+  const [failed, setFailed] = useState<Record<number, boolean>>({});
+
+  // Empty space added below the last paragraph so even the last (short) paragraphs
+  // can scroll all the way up to the top of the box.
+  const [tail, setTail] = useState(0);
 
   const update = (el: HTMLDivElement) => {
     const max = el.scrollHeight - el.clientHeight;
@@ -141,11 +185,24 @@ export default function AboutSection() {
   useEffect(() => {
     const el = textRef.current;
     if (!el) return;
-    const sync = () => update(el);
+    const sync = () => {
+      const lastParagraph = el.lastElementChild as HTMLElement | null;
+      if (lastParagraph) {
+        setTail(Math.max(0, el.clientHeight - lastParagraph.offsetHeight - TOP_OFFSET));
+      }
+      update(el);
+    };
     sync();
     window.addEventListener("resize", sync);
+    // Text height changes once the web font has loaded.
+    document.fonts?.ready.then(sync);
     return () => window.removeEventListener("resize", sync);
   }, []);
+
+  // Once the extra space is applied the scroll range has changed, so recalculate.
+  useEffect(() => {
+    if (textRef.current) update(textRef.current);
+  }, [tail]);
 
   // Mouse wheel: one notch moves to the next step (the next paragraph) instead of
   // a fixed ~100px. A paragraph taller than the box gets extra steps so you can
@@ -171,21 +228,7 @@ export default function AboutSection() {
       e.preventDefault();
       if (locked) return;
 
-      // Places to stop: one per paragraph (its anchor), plus extra stops
-      // wherever two stops are further apart than the box is tall, so no
-      // text is ever skipped.
-      const points = [...getAnchors(el, max), max];
-      const chunk = el.clientHeight * 0.8;
-      const sorted: number[] = [];
-      points.forEach((point, n) => {
-        sorted.push(point);
-        const next = points[n + 1];
-        if (next === undefined) return;
-        for (let y = point; next - y > el.clientHeight * 0.9; ) {
-          y += chunk;
-          sorted.push(y);
-        }
-      });
+      const sorted = getStops(el, max);
 
       const target =
         dir === 1
@@ -234,6 +277,7 @@ export default function AboutSection() {
             aria-label="Over mij, scrolbare tekst"
             tabIndex={0}
             onScroll={(e) => update(e.currentTarget)}
+            style={{ paddingBottom: tail }}
             className="h-(--view) space-y-4 overflow-y-auto pr-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden text-base leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:text-lg"
           >
             {SECTIONS.map((section, i) => (
@@ -272,7 +316,7 @@ export default function AboutSection() {
 
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-background to-transparent transition-opacity duration-200 sm:h-16 ${
+            className={`pointer-events-none absolute inset-x-0 top-0 h-8 bg-linear-to-b from-background to-transparent transition-opacity duration-200 ${
               moreAbove ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -313,10 +357,22 @@ export default function AboutSection() {
                   ref={(node) => {
                     slideRefs.current[i] = node;
                   }}
-                  className="flex w-3/5 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-5xl font-bold text-white/70 sm:text-6xl"
+                  className="relative flex w-3/5 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white/10 text-5xl font-bold text-white/70 sm:text-6xl"
                   style={{ height: "calc(var(--view) * 0.7)" }}
                 >
-                  {section.label}
+                  {imageFor(i) && !failed[i] ? (
+                    <Image
+                      src={imageFor(i)!}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 30vw, 60vw"
+                      className="object-cover"
+                      onError={() => setFailed((prev) => ({ ...prev, [i]: true }))}
+                    />
+                  ) : (
+                    // No image for this slide (or it failed to load): show the number.
+                    section.label
+                  )}
                 </div>
               ))}
             </div>
