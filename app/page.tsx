@@ -3,6 +3,7 @@ import ContactMenu from "../components/ContactMenu";
 import Divider from "../components/Divider";
 import AboutSection from "../components/AboutSection";
 import PathSection from "../components/PathSection";
+import ProjectsSection from "../components/ProjectsSection";
 import PageScrollbar from "@/components/PageScrollBar";
 
 export default function Home() {
@@ -29,6 +30,9 @@ export default function Home() {
 
       <Divider />
       <PathSection />
+
+      <Divider />
+      <ProjectsSection />
 
       <Divider />
     </main>

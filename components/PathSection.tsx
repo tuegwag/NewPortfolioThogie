@@ -42,6 +42,7 @@ const ENTRIES: Entry[] = [
     text: "Ik leer hier hoe ik in een team samen moet werken, hoe het op het echte werkveld allemaal werkt en hoe het veschilt met de opdrachten van school en het gebruik maken van frameworks and libraries die ik nog nooit eerder heb gebruikt",
     tags: [
       { name: "Yii2", icon: "yii" },
+      { name: "PHP", icon: "php" },
       { name: "React", icon: "react" },
       { name: "typescript", icon: "typescript" },
        { name: "Next.js", icon: "nextdotjs" },
