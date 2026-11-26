@@ -5,6 +5,8 @@ import AboutSection from "../components/AboutSection";
 import PathSection from "../components/PathSection";
 import ProjectsSection from "../components/ProjectsSection";
 import PageScrollbar from "@/components/PageScrollBar";
+import SkillsSection from "../components/SkillsSection";
+import ContactSection from "../components/ContactSection";
 
 export default function Home() {
   return (
@@ -35,6 +37,10 @@ export default function Home() {
       <ProjectsSection />
 
       <Divider />
+      <SkillsSection />
+
+      <Divider />
+      <ContactSection />
     </main>
   );
 }

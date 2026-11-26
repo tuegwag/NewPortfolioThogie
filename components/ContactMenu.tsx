@@ -3,29 +3,12 @@
 import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
+import { contactLinks } from "./contactLinks";
 
 const round = "rounded-full text-white border-0 outline-none";
 
 const BASE_DELAY = 750;
 const STAGGER = 50;
-
-const links = [
-  {
-    label: "E-mail",
-    href: "mailto:603972@edu.rocmn.nl",
-    icon: "https://img.icons8.com/ios/50/FFFFFF/microsoft-outlook-2025.png",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://nl.linkedin.com/in/thomas-lammerse-b5a6333b9",
-    icon: "https://img.icons8.com/ios/50/FFFFFF/linkedin.png",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/tuegwag",
-    icon: "https://img.icons8.com/fluency-systems-filled/48/FFFFFF/github.png",
-  },
-];
 
 function Tip({ label, children }: { label: string; children: ReactNode }) {
   const [hidden, setHidden] = useState(false);
@@ -63,7 +46,7 @@ export default function ContactMenu() {
 
   return (
     <div className="mt-8 flex flex-wrap items-center gap-2">
-      {links.map((link, i) => (
+      {contactLinks.map((link, i) => (
         <div
           key={link.label}
           className="wave-in"

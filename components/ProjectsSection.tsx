@@ -18,13 +18,29 @@ interface CardRect {
   height: number;
 }
 
-const PROJECTS: Project[] = [1, 2, 3, 4, 5, 6].map((n) => ({
-  title: `Project ${n}`,
-  text: "Korte beschrijving van het project. Vervang deze tekst door wat je hebt gemaakt.",
-  tags: ["Next.js", "TypeScript"],
-  href: "https://example.com",
-  image: `/img/projects/project${n}.jpg`,
-}));
+ const PROJECTS: Project[] = [
+  {
+    title: "mijn Portfolio",
+    text: "Een portfolio om mijzelf en mijn skills tentoon te stellen.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    href: "https://example.com",
+    image: "/projects/imgProjects/Portfolio.png",
+  },
+  {
+    title: "Game, In The Hunt",
+    text: "Een kleine game gebaseerd op een spel uit 1993 waarin je tegenstanders moet neerschieten terwijl je jezelf in leven moet houden.",
+    tags: ["Html 5", "CSS","Javascript"],
+    href: "https://example.com",
+    image: "/projects/imgProjects/InTheHunt.jpg",
+  },
+  {
+    title: "GameCraft",
+    text: "Een groepsopdracht waarin wij onze games die wij in deze periode gemaakt hebben tentoonstellen.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    href: "https://example.com",
+    image: "/projects/imgProjects/GameCraft.png",
+  },
+];
 
 const BACKGROUNDS = [
   "#A4D8C9",
