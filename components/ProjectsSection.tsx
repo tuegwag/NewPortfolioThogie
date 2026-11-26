@@ -9,6 +9,7 @@ interface Project {
   tags: string[];
   href: string;
   image: string;
+  logo: string;
 }
 
 interface CardRect {
@@ -25,13 +26,15 @@ interface CardRect {
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     href: "https://example.com",
     image: "/projects/imgProjects/Portfolio.png",
+    logo: "P",
   },
   {
     title: "Game, In The Hunt",
-    text: "Een kleine game gebaseerd op een spel uit 1993 waarin je tegenstanders moet neerschieten terwijl je jezelf in leven moet houden.",
+    text: "Een kleine game gebaseerd op een spel uit 1993 waarin je tegenstanders moet neerknallen terwijl je jezelf in leven moet houden.",
     tags: ["Html 5", "CSS","Javascript"],
     href: "https://example.com",
     image: "/projects/imgProjects/InTheHunt.jpg",
+    logo: "/projects/imgProjects/playersub1.svg",
   },
   {
     title: "GameCraft",
@@ -39,6 +42,7 @@ interface CardRect {
     tags: ["HTML", "CSS", "JavaScript"],
     href: "https://example.com",
     image: "/projects/imgProjects/GameCraft.png",
+    logo: "/projects/imgProjects/GameCraftLogo.png",
   },
 ];
 
@@ -478,7 +482,7 @@ export default function ProjectsSection() {
               </span>
 
               <span className="text-xs font-semibold text-black/40">
-                {String(selectedIndex + 1).padStart(2, "0")} / 06
+                {String(selectedIndex + 1).padStart(2, "0")} / 03
               </span>
             </div>
           </div>

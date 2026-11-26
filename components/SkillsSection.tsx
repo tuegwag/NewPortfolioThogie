@@ -24,7 +24,8 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: "JavaScript", icon: "javascript" },
       { name: "TypeScript", icon: "typescript" },
       { name: "PHP", icon: "php" },
-      { name: "C#", icon: "csharp" },
+      { name: "C#"},
+      { name: "SQL" },
     ],
   },
   {
@@ -35,8 +36,9 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: "Yii2", icon: "yii" },
       { name: "Bootstrap", icon: "bootstrap" },
       { name: "Tailwind CSS", icon: "tailwindcss" },
+      { name: "SCSS", icon: "sass"},
       { name: "HeroUI", icon: "heroui" },
-      { name: "Motion.dev", icon: "motion" },
+      { name: "MotionUI"},
     ],
   },
   {
@@ -51,7 +53,6 @@ const SKILL_GROUPS: SkillGroup[] = [
   {
     title: "Database & Tools",
     skills: [
-      { name: "SQL" },
       { name: "MySQL", icon: "mysql" },
       { name: "Docker", icon: "docker" },
       { name: "Git", icon: "git" },
