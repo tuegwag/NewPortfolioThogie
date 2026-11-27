@@ -1,0 +1,253 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    font-family: 'Courier New', monospace;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* HEADER */
+header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: clamp(12px, 2vw, 20px) clamp(16px, 4vw, 30px);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header-logo {
+    font-size: clamp(32px, 7vw, 70px);
+    font-weight: 700;
+    letter-spacing: clamp(2px, 1vw, 8px);
+    white-space: nowrap;
+}
+
+.game {
+    color: #00ffff;
+    text-shadow: 0 0 40px #00d8f6;
+}
+
+.craft {
+    color: #ff00ff;
+    text-shadow: 0 0 40px #e23bf6;
+}
+
+/* NAV */
+nav ul {
+    display: flex;
+    gap: clamp(20px, 4vw, 40px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: #027700;
+    text-decoration: none;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-btn img {
+    width: 40px;
+    height: 36px;
+}
+
+.shape {
+    position: fixed;
+    top: calc(var(--header-height, 0px) - 370px);
+    left: -40%;
+    width: 70vw;
+    height: 2000px;
+    background: radial-gradient(#00eaff, rgb(0, 234, 255));
+    z-index: 0;
+    pointer-events: none;
+    transform: rotate(20deg);
+}
+
+/* CONTACT BOX */
+.border-contact-box {
+    width: min(92%, 1000px);
+    margin: clamp(120px, 15vh, 160px) auto 40px;
+    padding: clamp(20px, 4vw, 30px);
+    border: 3px solid #00eaff;
+    background: #000;
+    box-shadow: 0 0 30px #00eaff;
+    border-bottom-left-radius: clamp(30px, 5vw, 60px);
+    border-top-right-radius: clamp(30px, 5vw, 60px);
+    position: relative;
+    z-index: 1;
+}
+
+/* FORM */
+.contact-form {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(20px, 5vw, 40px);
+    background: #000;
+    box-shadow: 0 0 20px #00eaff;
+}
+
+.title-contact,
+.title-us {
+    text-align: center;
+    font-size: clamp(28px, 7vw, 48px);
+    margin-bottom: clamp(20px, 5vh, 40px);
+}
+
+.title-contact {
+    color: #ff00ff;
+}
+
+.title-us {
+    color: #00ffff;
+}
+
+/* FORM LAYOUT */
+.row {
+    display: flex;
+    gap: clamp(20px, 4vw, 30px);
+    flex-wrap: wrap;
+}
+
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+}
+
+.input-wrapper,
+.input-wrapper2,
+.textarea-wrapper {
+    flex: 1;
+    padding: 4px; 
+    border-radius: 6px;
+    min-width: 220px;
+    margin-bottom: 20px; 
+}
+
+
+.input-wrapper {
+    background: linear-gradient(135deg, #ff00ff, #00ffff);
+}
+
+.input-wrapper2 {
+    background: linear-gradient(135deg, #00ffff, #ff00ff);
+}
+
+.textarea-wrapper {
+    background: linear-gradient(135deg, #ff00ff, #00ffff);
+    width: 100%;
+    margin-top: clamp(20px, 3vh, 30px); 
+}
+
+.contact-input,
+.contact-input2,
+textarea {
+    width: 100%;
+    padding: clamp(12px, 2vw, 18px);
+    font-size: clamp(14px, 2.5vw, 20px);
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+}
+
+textarea {
+    resize: none;
+    height: clamp(110px, 20vh, 150px);
+}
+
+/* BUTTON */
+.submit-btn {
+    display: block;
+    margin: clamp(20px, 3vh, 40px) auto 0;
+    padding: clamp(10px, 2vh, 14px) 0;
+    width: clamp(160px, 30vw, 230px);
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: bold;
+    background: linear-gradient(90deg, #16DEFC, #6552F1);
+    border: none;
+    transform: skew(-20deg);
+    cursor: pointer;
+}
+
+
+/* ANIMATION */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* MOBILE NAV */
+@media (max-width: 800px) {
+    nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: rgba(10, 10, 10, 0.97);
+        padding: 24px;
+        display: none;
+        z-index: 999;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+}
+@media(max-width: 800px){
+    .shape{
+        top: calc(var(--header-height, 0px) - 300px);
+        width:350px;
+    }
+
+}
+@media(max-width: 600px){
+    .shape{
+        display:none;
+    }
+
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>In the Hunt</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/gameInTheHunt/public/game/images/playersub1.svg"/>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        background: url("imagesTitlescreen/titleScreen.png")
+          center center fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+    
+      .box{
+        width: 100%;
+        height:50%;
+      }
+
+      #playBtn {
+        background: url("imagesTitlescreen/playButton1.svg");
+        width: 28vh;
+        height: 8vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
+      }
+
+       #playBtn:hover{
+        width: 29vh;
+        height: 9vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
+       }
+
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <a href="game/index.html" id="playBtn"></a>
+  </body>
+</html>

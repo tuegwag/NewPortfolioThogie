@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameCraft - Games</title>
+    <link rel="icon" type="image" href="../assets/img/icon.png">
+    <!-- add icon ples -->
+    <!-- work on making the page responsive -->
+    <link rel="stylesheet" href="../assets/css/games.css">
+</head>
+
+<body>
+    <header id="header">
+        <div class="header-inner">
+            <div class="header-logo">
+                <span class="game">GAME</span><span class="craft">CRAFT</span>
+            </div>
+            <nav id="navLinks">
+                <ul>
+                    <li><a href="../index.html" style="cursor: pointer;">Home</a></li>
+                    <li><a href="#" style="cursor: pointer;">&gt;Games</a></li>
+                    <li><a href="about.html" style="cursor: pointer;">About</a></li>
+                    <li><a href="contact.html" style="cursor: pointer;">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <img src="../assets/img/hamburger-menu.svg" alt="Menu">
+            </button>
+        </div>
+    </header>
+
+    <div class="carouselContainer">
+        <div class="purpleBg"></div>
+
+        <div class="carouselWrapper">
+            <div class="gameCard left" onclick="window.location.href='../html-pages/info-pages/gamesinfoStijn.html'">
+                <img src="../assets/img/froggerBanner.png" alt="froggerCover">
+                <!-- hampter -->
+            </div>
+            <div class="gameCard active" onclick="window.location.href='../html-pages/info-pages/gamesinfoThomas.html'">
+                <img src="../assets/img/theHunBanner.png" alt="theHuntCover">
+                <!-- thogie -->
+            </div>
+            <div class="gameCard right" onclick="window.location.href='../html-pages/info-pages/gamesinfoLuke.html'">
+                <img src="../assets/img/battleShipBanner.png" alt="BattleShipBanner">
+                <!-- lucer -->
+            </div>
+            <div class="gameCard hidden" onclick="window.location.href='../html-pages/info-pages/gamesinfoJesse.html'">
+                <img src="../assets/img/marioRunnerBanner.png" alt="">
+                <!-- jesse -->
+            </div>
+            <div class="gameCard hidden" onclick="window.location.href='../html-pages/info-pages/gamesinfoYannick.html'">
+                <img src="../assets/img/chessBanner.png" alt="">
+                <!-- yannick -->
+            </div>
+        </div>
+
+        <button class="navButton leftBtn">&lt;</button>
+        <button class="navButton rightBtn">&gt;</button>
+    </div>
+    <script src="../assets/js/games.js"></script>
+</body>
+
+</html>

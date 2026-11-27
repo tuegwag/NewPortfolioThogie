@@ -19,30 +19,30 @@ interface CardRect {
   height: number;
 }
 
- const PROJECTS: Project[] = [
+const PROJECTS: Project[] = [
   {
     title: "mijn Portfolio",
     text: "Een portfolio om mijzelf en mijn skills tentoon te stellen.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    href: "https://example.com",
+    href: "/",
     image: "/projects/imgProjects/Portfolio.png",
     logo: "P",
   },
   {
     title: "Game, In The Hunt",
     text: "Een kleine game gebaseerd op een spel uit 1993 waarin je tegenstanders moet neerknallen terwijl je jezelf in leven moet houden.",
-    tags: ["Html 5", "CSS","Javascript"],
-    href: "https://example.com",
+    tags: ["Html 5", "CSS", "Javascript"],
+    href: "/projects/theProjects/inTheHunt/index.html",
     image: "/projects/imgProjects/InTheHunt.jpg",
-    logo: "/projects/imgProjects/playersub1.svg",
+    logo: "/projects/logoProjects/playersub1.svg",
   },
   {
     title: "GameCraft",
     text: "Een groepsopdracht waarin wij onze games die wij in deze periode gemaakt hebben tentoonstellen.",
     tags: ["HTML", "CSS", "JavaScript"],
-    href: "https://example.com",
+    href: "/projects/theProjects/GameCraft/index.html",
     image: "/projects/imgProjects/GameCraft.png",
-    logo: "/projects/imgProjects/GameCraftLogo.png",
+    logo: "/projects/logoProjects/GameCraftLogo.png",
   },
 ];
 
@@ -84,9 +84,19 @@ function ProjectCard({
     >
       <div className="relative z-10 flex items-center gap-3 p-4 sm:gap-4 sm:p-5">
         <div className="flex size-9 shrink-0 items-center justify-center sm:size-11">
-          <span className="text-xl font-black text-black/75 sm:text-2xl">
-            P
-          </span>
+          {project.logo === "P" ? (
+            <span className="text-xl font-black text-black/75 sm:text-2xl">
+              P
+            </span>
+          ) : (
+            <Image
+              src={project.logo}
+              alt={`${project.title} logo`}
+              width={44}
+              height={44}
+              className="size-full object-contain"
+            />
+          )}
         </div>
 
         <h3 className="text-base font-black leading-tight text-black/85 sm:text-lg md:text-xl">
@@ -129,10 +139,8 @@ export default function ProjectsSection() {
 
   const [dragging, setDragging] = useState(false);
 
-  const [selectedProject, setSelectedProject] =
-    useState<Project | null>(null);
-  const [selectedRect, setSelectedRect] =
-    useState<CardRect | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedRect, setSelectedRect] = useState<CardRect | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
 
@@ -242,10 +250,7 @@ export default function ProjectsSection() {
     window.addEventListener("mouseup", onUp);
   };
 
-  const openProject = (
-    project: Project,
-    element: HTMLElement,
-  ) => {
+  const openProject = (project: Project, element: HTMLElement) => {
     if (moved.current || selectedProject) return;
 
     if (animationRef.current !== null) {
@@ -298,9 +303,7 @@ export default function ProjectsSection() {
   }, [selectedProject]);
 
   const selectedIndex = selectedProject
-    ? PROJECTS.findIndex(
-        (project) => project.title === selectedProject.title,
-      )
+    ? PROJECTS.findIndex((project) => project.title === selectedProject.title)
     : 0;
 
   const selectedBackground =
@@ -383,9 +386,7 @@ export default function ProjectsSection() {
             className="mx-auto flex min-h-full w-full max-w-[1440px] flex-col px-6 py-6 sm:px-10 sm:py-8 lg:px-16 lg:py-10"
             style={{
               opacity: detailsVisible ? 1 : 0,
-              transform: detailsVisible
-                ? "translateY(0)"
-                : "translateY(18px)",
+              transform: detailsVisible ? "translateY(0)" : "translateY(18px)",
               transition: "opacity 450ms ease, transform 550ms ease",
               transitionDelay: detailsVisible ? "100ms" : "0ms",
               pointerEvents: detailsVisible ? "auto" : "none",
@@ -408,8 +409,20 @@ export default function ProjectsSection() {
 
             <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 xl:gap-20">
               <div className="flex flex-col items-start">
-                <div className="mb-6 flex size-12 items-center justify-center border-2 border-black text-2xl font-black text-black sm:mb-8 sm:size-14 sm:text-3xl">
-                  P
+                <div className="mb-6 flex size-12 items-center justify-center sm:mb-8 sm:size-14">
+                  {selectedProject.logo === "P" ? (
+                    <div className="flex size-full items-center justify-center border-2 border-black text-2xl font-black text-black sm:text-3xl">
+                      P
+                    </div>
+                  ) : (
+                    <Image
+                      src={selectedProject.logo}
+                      alt={`${selectedProject.title} logo`}
+                      width={56}
+                      height={56}
+                      className="size-full object-contain"
+                    />
+                  )}
                 </div>
 
                 <span className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-black/45 sm:text-sm">

@@ -1,0 +1,432 @@
+ body {
+     margin: 0;
+     padding: 0;
+     background: #0a0a0a;
+     display: flex;
+     min-height: 100vh;
+     font-family: 'Courier New', monospace;
+     overflow: hidden;
+     flex-direction: column;
+ }
+
+ * {
+     box-sizing: border-box;
+ }
+
+ /* TODO make this page responsive */
+
+ /* Header Styles */
+ header {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     background-color: rgba(10, 10, 10, 0.59);
+     backdrop-filter: blur(10px);
+     z-index: 1000;
+     padding: 40px 45px;
+ }
+
+ .header-inner {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     max-width: 1440px;
+     margin: 0 auto;
+ }
+
+ .header-logo {
+     font-size: 80px;
+     font-weight: 700;
+     letter-spacing: 8px;
+     line-height: 1;
+     white-space: nowrap;
+     animation: flicker 3s infinite alternate;
+ }
+
+ .game {
+     color: #00ffff;
+     text-shadow: 0 0 50px #00d8f6;
+ }
+
+ .craft {
+     color: #ff00ff;
+     text-shadow: 0 0 50px #e23bf6;
+ }
+
+ nav ul {
+     display: flex;
+     gap: 40px;
+     list-style: none;
+     align-items: center;
+     justify-content: flex-end;
+ }
+
+ nav a {
+     color: #027700;
+     text-decoration: none;
+     font-size: 22px;
+     font-weight: 700;
+     letter-spacing: 4px;
+     transition: opacity 0.3s;
+ }
+
+ nav a:hover {
+     opacity: 0.7;
+ }
+
+ .mobile-menu-btn {
+     display: none;
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 0;
+ }
+
+ .mobile-menu-btn img {
+     width: 46px;
+     height: 42px;
+ }
+
+ @keyframes flicker {
+
+     0%,
+     100% {
+         opacity: 1;
+     }
+
+     50% {
+         opacity: 0.8;
+     }
+ }
+
+ /* TODO make carousel responsive */
+ /* TODO date vandaag */
+
+ .carouselContainer {
+     position: absolute;
+     top: 10%;
+     left: 0;
+     width: 100%;
+     height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     overflow: hidden;
+     z-index: 0;
+ }
+
+ .purpleBg {
+     position: fixed;
+     right: 0;
+     top: 0;
+     width: 50%;
+     height: 100%;
+     background: linear-gradient(90deg, #6b0099 0%, #8b00cc 100%);
+     clip-path: polygon(0 0, 100% 0, 100% 100%, 25% 100%);
+     z-index: 0;
+ }
+
+ .carouselWrapper {
+     position: relative;
+     width: 100%;
+     height: 400px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 1;
+ }
+
+ .gameCard {
+     position: absolute;
+     width: 600px;
+     height: 400px;
+     background: #e0e0e0;
+     border: 3px solid #000;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 24px;
+     font-weight: normal;
+     color: #666;
+     transition: all 0.5s ease;
+     cursor: default;
+     pointer-events: none;
+ }
+
+ .gameCard.active {
+     z-index: 10;
+     transform: translateX(0) scale(1);
+     opacity: 1;
+     cursor: pointer;
+     pointer-events: auto;
+ }
+
+ .gameCard.left {
+     z-index: 5;
+     transform: translateX(-650px) scale(0.7);
+     opacity: 1;
+ }
+
+ .gameCard.right {
+     z-index: 5;
+     transform: translateX(650px) scale(0.7);
+     opacity: 1;
+
+ }
+
+ .gameCard.hidden {
+     opacity: 0;
+     z-index: 1;
+     transform: scale(0.5);
+ }
+
+ .navButton {
+     position: absolute;
+     width: 60px;
+     height: 60px;
+     background: #fff;
+     border: none;
+     border-radius: 100%;
+     font-size: 36px;
+     font-weight: bold;
+     color: #000;
+     cursor: pointer;
+     z-index: 50;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: background 0.3s, color 0.3s;
+     user-select: none;
+ }
+
+ .navButton:hover {
+     background: #00ffff;
+     color: #000;
+ }
+
+ .navButton:active {
+     transform: scale(0.95);
+ }
+
+ .navButton.leftBtn {
+     left: 50px;
+     top: 50%;
+     transform: translateY(-50%);
+ }
+
+ .navButton.rightBtn {
+     right: 50px;
+     top: 50%;
+     transform: translateY(-50%);
+ }
+
+ .navButton.leftBtn:hover {
+     transform: translateY(-50%) scale(1.05);
+ }
+
+ .navButton.rightBtn:hover {
+     transform: translateY(-50%) scale(1.05);
+ }
+
+ .navButton.leftBtn:active {
+     transform: translateY(-50%) scale(0.95);
+ }
+
+ .navButton.rightBtn:active {
+     transform: translateY(-50%) scale(0.95);
+ }
+
+ .gameCard img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     display: block;
+ }
+
+ @media (max-width: 1400px) {
+     nav ul {
+         gap: 32px;
+     }
+
+     nav a {
+         font-size: 20px;
+     }
+ }
+
+ @media (max-width: 1024px) {
+     header {
+         padding: 30px 30px;
+     }
+
+     .header-logo {
+         font-size: 60px;
+         letter-spacing: 6px;
+     }
+
+     nav ul {
+         gap: 24px;
+     }
+
+     nav a {
+         font-size: 18px;
+     }
+ }
+
+ @media (max-width: 900px) {
+     nav ul {
+         gap: 16px;
+     }
+
+     nav a {
+         font-size: 16px;
+     }
+ }
+
+ @media (max-width: 768px) {
+     header {
+         padding: 15px 15px;
+         height: auto;
+     }
+
+     .header-inner {
+         width: 100%;
+         padding: 0;
+     }
+
+     .header-logo {
+         font-size: 40px;
+         letter-spacing: 4px;
+         white-space: nowrap;
+         flex: 1;
+     }
+
+     nav {
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         background-color: rgba(10, 10, 10, 0.98);
+         height: 0;
+         max-height: none;
+         overflow: hidden;
+         opacity: 0;
+         pointer-events: none;
+         padding-top: 0;
+         transition: height 0.35s ease, opacity 0.25s ease;
+         z-index: 2000;
+     }
+
+     nav.active {
+         height: 100vh;
+         padding-top: 80px;
+         opacity: 1;
+         pointer-events: auto;
+         overflow-y: auto;
+     }
+
+     nav {
+         display: block !important;
+     }
+
+     nav ul {
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+         padding: 30px 20px;
+         align-items: flex-start;
+         width: 100%;
+     }
+
+     nav a {
+         font-size: 20px;
+         letter-spacing: 2px;
+     }
+
+     .mobile-menu-btn {
+         display: block;
+         margin-left: auto;
+         padding: 5px;
+         width: 30px;
+         height: 30px;
+         background: none;
+         border: none;
+         cursor: pointer;
+     }
+
+     .mobile-menu-btn img {
+         width: 100%;
+         height: 100%;
+         object-fit: contain;
+     }
+ }
+
+ @media (max-width: 760px) {
+    .carouselContainer {
+     position: absolute;
+     top: 10%;
+     left: 0;
+     width: 100%;
+     height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     overflow: hidden;
+     z-index: 0;
+ }
+
+ .carouselWrapper {
+     position: relative;
+     width: 100%;
+     height: 400px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 1;
+ }
+
+ .gameCard {    
+     position: absolute;
+     width: 75vw;
+     height: 40vh;
+     background: #e0e0e0;
+     border: 3px solid #000;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 24px;
+     font-weight: normal;
+     color: #666;
+     transition: all 0.5s ease;
+     cursor: default;
+     pointer-events: none;
+ }
+
+ .gameCard.active {
+     z-index: 10;
+     transform: translateX(0) scale(1);
+     opacity: 1;
+     cursor: pointer;
+     pointer-events: auto;
+ }
+
+ .gameCard.left {
+     z-index: 5;
+     transform: translateX(-250px) scale(0.7);
+     opacity: 1;
+ }
+
+ .gameCard.right {
+     z-index: 5;
+     transform: translateX(250px) scale(0.7);
+     opacity: 1;
+
+ }
+
+ .gameCard.hidden {
+     opacity: 0;
+     z-index: 1;
+     transform: scale(0.5);
+ }
+    
+ }

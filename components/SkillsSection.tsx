@@ -38,7 +38,10 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: "Tailwind CSS", icon: "tailwindcss" },
       { name: "SCSS", icon: "sass"},
       { name: "HeroUI", icon: "heroui" },
-      { name: "MotionUI"},
+      { name: "MotionUI"
+
+        
+      },
     ],
   },
   {
